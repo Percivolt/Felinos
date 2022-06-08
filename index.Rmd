@@ -5,9 +5,7 @@ date: '2022-06-08'
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 # Preparativos  
 
@@ -63,3 +61,27 @@ felinos %>%
 ```
 # Gráfico   
 
+``` {r grafico}
+grafico_barras <-
+felinos %>%
+  ggplot(aes(x = species)) +
+  geom_bar()
+
+ggplotly(grafico_barras)
+```
+
+
+# Mapa  
+
+``` {r mapa, message=FALSE, echo=FALSE}
+# Mapa leaflet básico de provincias y registros de presencia de felinos
+leaflet() %>%
+  addTiles() %>% # capa base de OSM
+  addCircleMarkers( # capa de registros de presencia (puntos)
+    data = felinos,
+    stroke = F,
+    radius = 4,
+    fillColor = 'blue',
+    fillOpacity = 1
+  )
+```
